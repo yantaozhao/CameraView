@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import java.io.File;
+import java.util.List;
 
 @TargetApi(21)
 class Camera2 extends CameraController {
@@ -33,6 +34,24 @@ class Camera2 extends CameraController {
     @Override
     void onStop() {
 
+    }
+
+    @Override
+    List<Size> getDevSupportedPreviewSizes()
+    {
+        return null;
+    }
+
+    @Override
+    List<Size> getDevSupportedPictureSizes()
+    {
+        return null;
+    }
+
+    @Override
+    List<Size> getDevSupportedVideoSizes()
+    {
+        return null;
     }
 
     @Override

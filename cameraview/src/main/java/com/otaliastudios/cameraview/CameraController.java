@@ -246,6 +246,13 @@ abstract class CameraController implements
         });
     }
 
+    // Getter supported sizes
+    abstract List<Size> getDevSupportedPreviewSizes();
+
+    abstract List<Size> getDevSupportedPictureSizes();
+
+    abstract List<Size> getDevSupportedVideoSizes();
+
     // Starts the preview.
     // At the end of this method camera must be available, e.g. for setting parameters.
     @WorkerThread
@@ -515,12 +522,24 @@ abstract class CameraController implements
         SizeSelector matchSize = SizeSelectors.and(
                 SizeSelectors.minHeight(targetMinSize.getHeight()),
                 SizeSelectors.minWidth(targetMinSize.getWidth()));
-        SizeSelector matchAll = SizeSelectors.or(
-                SizeSelectors.and(matchRatio, matchSize),
-                SizeSelectors.and(matchRatio, SizeSelectors.biggest()), // If couldn't match both, match ratio and biggest.
-                SizeSelectors.biggest() // If couldn't match any, take the biggest.
-        );
-        Size result = matchAll.select(previewSizes).get(0);
+        Size result = null;
+        for (Size sz : previewSizes)
+        {
+            if (sz.equals(targetMinSize))
+            {
+                result = targetMinSize;  // match the one configured in picture
+                break;
+            }
+        }
+        if (result == null)
+        {
+            SizeSelector matchAll = SizeSelectors.or(
+                    SizeSelectors.and(matchRatio, matchSize),
+                    SizeSelectors.and(matchRatio, SizeSelectors.biggest()), // If couldn't match both, match ratio and biggest.
+                    SizeSelectors.biggest() // If couldn't match any, take the biggest.
+            );
+            result = matchAll.select(previewSizes).get(0);
+        }
         LOG.i("computePreviewSize:", "result:", result, "flip:", flip);
         return result;
     }

@@ -257,6 +257,24 @@ class Camera1 extends CameraController implements Camera.PreviewCallback, Camera
     }
 
     @Override
+    List<Size> getDevSupportedPreviewSizes()
+    {
+        return sizesFromList(mCamera.getParameters().getSupportedPreviewSizes());
+    }
+
+    @Override
+    List<Size> getDevSupportedPictureSizes()
+    {
+        return sizesFromList(mCamera.getParameters().getSupportedPictureSizes());
+    }
+
+    @Override
+    List<Size> getDevSupportedVideoSizes()
+    {
+        return sizesFromList(mCamera.getParameters().getSupportedVideoSizes());
+    }
+
+    @Override
     public void onBufferAvailable(byte[] buffer) {
         // TODO: sync with handler?
         if (isCameraAvailable()) {

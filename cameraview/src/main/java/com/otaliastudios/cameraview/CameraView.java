@@ -1343,6 +1343,30 @@ public class CameraView extends FrameLayout implements LifecycleObserver {
         return getPreviewSize();
     }
 
+    public List<Size> getDeviceSupportedPreviewSizes()
+    {
+        if (mCameraController != null)
+            return mCameraController.getDevSupportedPreviewSizes();
+        else
+            return null;
+    }
+
+    public List<Size> getDeviceSupportedPictureSizes()
+    {
+        if (mCameraController != null)
+            return mCameraController.getDevSupportedPictureSizes();
+        else
+            return null;
+    }
+
+    public List<Size> getDeviceSupportedVideoSizes()
+    {
+        if (mCameraController != null)
+            return mCameraController.getDevSupportedVideoSizes();
+        else
+            return null;
+    }
+
 
     // If we end up here, we're in M.
     @TargetApi(Build.VERSION_CODES.M)
