@@ -1351,6 +1351,11 @@ public class CameraView extends FrameLayout implements LifecycleObserver {
             return null;
     }
 
+    public boolean shouldFlipSize()
+    {
+        return mCameraController.shouldFlipSizes();
+    }
+
     public List<Size> getDeviceSupportedPictureSizes()
     {
         if (mCameraController != null)
